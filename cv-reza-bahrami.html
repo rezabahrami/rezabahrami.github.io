@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Reza Bahrami – Web- und Software Entwickler</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --accent: #4a6f8a;
+    --accent2: #F3F7FA;
+    --border: #dde4ea;
+    --tag-bg: #edf2f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: sans-serif;
+    background: #fff;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-6px); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(74,111,138,0.3); }
+    50%       { box-shadow: 0 0 0 8px rgba(74,111,138,0); }
+  }
+
+  /* ---- HERO WRAPPER — 150px margin desktop ---- */
+  .hero-wrapper {
+    margin: 24px 150px;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    border-radius: 20px;
+    background: #F3F7FA;
+    border: 1px solid var(--border);
+    padding: 50px 60px 40px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 36px;
+    align-items: center;
+    animation: fadeIn 0.8s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(90deg, #4a6f8a, #F3F7FA, #4a6f8a);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .avatar-wrap img,
+  .avatar-placeholder {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+  }
+  .avatar-placeholder {
+    background: linear-gradient(135deg, #c8dae6, #a8c4d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+  .avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px dashed var(--accent);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .hero-name { animation: slideRight 0.8s 0.2s ease both; }
+  .hero-name h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .hero-name .title {
+    font-size: 1rem;
+    color: #4a6f8a;
+    font-style: italic;
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* Desktop contact (right column) */
+  .hero-contact {
+    text-align: right;
+    animation: fadeIn 0.8s 0.4s ease both;
+  }
+  .hero-contact a, .hero-contact p {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-decoration: none;
+    margin-bottom: 5px;
+    transition: color 0.2s;
+  }
+  .hero-contact a:hover { color: var(--accent); }
+  .hero-contact .linkedin {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .hero-contact .linkedin:hover { background: var(--accent); color: #fff; }
+
+  /* Mobile contact (hidden on desktop) */
+  .hero-contact-mobile { display: none; }
+
+  /* ---- LAYOUT ---- */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 40px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+  }
+
+  /* ---- SECTION ---- */
+  .section { margin-bottom: 40px; }
+  .section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    font-family: Arial;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 40px; height: 2px;
+    background: var(--accent);
+  }
+
+  /* ---- PROFIL ---- */
+  .profil-text { font-size: 0.95rem; line-height: 1.75; color: var(--text-light); }
+
+  /* ---- JOB ---- */
+  .job { padding: 22px 0; border-bottom: 1px solid var(--border); transition: all 0.3s; }
+  .job:last-child { border-bottom: none; }
+  .job:hover { transform: translateX(4px); }
+  .job-header { margin-bottom: 6px; }
+  .job-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .job-company { font-size: 0.85rem; color: var(--text-light); margin-top: 2px; }
+  .job-date { font-size: 0.78rem; color: var(--accent); font-weight: 500; margin-top: 2px; font-style: italic; }
+  .job-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; margin-top: 10px; }
+  .job-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .job-tag { font-size: 0.72rem; padding: 3px 10px; background: var(--tag-bg); border-radius: 12px; color: var(--text-light); font-weight: 500; }
+  .job-bullets { margin-top: 10px; padding-left: 0; list-style: none; }
+  .job-bullets li { font-size: 0.87rem; color: var(--text-light); padding: 3px 0 3px 16px; position: relative; }
+  .job-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* ---- GITHUB ---- */
+  .github-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 18px; background: var(--text); color: #fff;
+    border-radius: 10px; text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; transition: all 0.3s; margin-bottom: 6px;
+  }
+  .github-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,111,138,0.3); }
+  .github-btn svg { width: 18px; height: 18px; }
+
+  /* ---- EDUCATION ---- */
+  .edu-item { margin-bottom: 16px; }
+  .edu-degree { font-weight: 700; font-size: 0.95rem; font-family: 'Playfair Display', serif; line-height: 1.3; }
+  .edu-school { font-size: 0.82rem; color: var(--text-light); margin-top: 3px; }
+  .edu-date { font-size: 0.76rem; color: var(--accent); font-style: italic; margin-top: 2px; }
+
+  /* ---- LANGUAGES ---- */
+  .lang-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .lang-item:last-child { border-bottom: none; }
+  .lang-name { font-size: 0.88rem; font-weight: 500; }
+  .lang-level { font-size: 0.76rem; color: var(--accent); background: rgba(74,111,138,0.1); padding: 2px 10px; border-radius: 10px; }
+
+  /* ---- EXPERTISE ---- */
+  .expertise-list { display: flex; flex-direction: column; gap: 6px; }
+  .expertise-item {
+    font-size: 0.85rem; color: var(--text-light); padding: 8px 12px;
+    background: var(--tag-bg); border-radius: 8px; border-left: 2px solid var(--accent); transition: all 0.25s;
+  }
+  .expertise-item:hover { background: rgba(74,111,138,0.08); color: var(--text); transform: translateX(4px); }
+
+  /* ---- TOOLS ---- */
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tool-tag {
+    font-size: 0.78rem; padding: 5px 13px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 20px; color: var(--text);
+    font-weight: 500; transition: all 0.25s; cursor: default;
+  }
+  .tool-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(74,111,138,0.05); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74,111,138,0.15); }
+
+  /* ---- SCROLL REVEAL ---- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ---- FOOTER ---- */
+  .footer { text-align: center; padding: 30px; font-size: 0.78rem; color: #aaa; border-top: 1px solid var(--border); margin-top: 20px; }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+
+  /* Tablet: reduce margin */
+  @media (max-width: 1100px) {
+    .hero-wrapper { margin: 16px 40px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero-wrapper { margin: 12px 12px; }
+
+    /* Stack hero vertically, centered */
+    .hero {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+      padding: 28px 20px 24px;
+      gap: 14px;
+    }
+
+    /* Hide desktop contact column */
+    .hero-contact { display: none; }
+
+    /* Show mobile contact */
+    .hero-contact-mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .hero-contact-mobile a,
+    .hero-contact-mobile p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-contact-mobile a:hover { color: var(--accent); }
+    .hero-contact-mobile .linkedin {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 6px 18px;
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .hero-contact-mobile .linkedin:hover { background: var(--accent); color: #fff; }
+
+    .hero-name h1 { font-size: 1.75rem; }
+
+    .container { grid-template-columns: 1fr; padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero-wrapper">
+  <header class="hero">
+
+    <div class="avatar-wrap">
+      <div class="avatar-placeholder"><img src="reza_bahrami_profile.jpg"></div>
+    </div>
+
+    <div class="hero-name">
+      <h1>Mohammad Reza Bahrami</h1>
+      <p class="title">Web- und Software Entwickler</p>
+      <!-- Contact info shown only on mobile -->
+      <div class="hero-contact-mobile">
+        <p> +49 152 116 27842</p>
+        <a href="mailto:rz.bahrami@gmail.com">rz.bahrami@gmail.com</a>
+        <p> Erkrath, Deutschland</p>
+        <a href="https://www.linkedin.com/in/mohammadrezabahrami/" target="_blank" class="linkedin">LinkedIn →</a>
+      </div>
+    </div>
+
+    <!-- Contact info shown only on desktop -->
+    <div class="hero-contact">
+      <p> +49 152 116 27842</p>
+      <a href="mailto:rz.bahrami@gmail.com">rz.bahrami@gmail.com</a>
+      <p> Erkrath, Deutschland</p>
+      <a href="https://www.linkedin.com/in/mohammadrezabahrami/" target="_blank" class="linkedin">LinkedIn →</a>
+    </div>
+
+  </header>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="container">
+
+  <main>
+
+    <div class="section reveal">
+      <div class="section-title">Profil</div>
+      <p class="profil-text">
+        Erfahrener Web- und Software-Entwickler mit über acht Jahren Berufserfahrung in der Entwicklung moderner Anwendungen mit PHP, Laravel, React, TypeScript, Flutter und Firebase. Spezialisiert auf die Konzeption und Umsetzung skalierbarer Weblösungen sowie performanter API-Architekturen. Ich arbeite strukturiert, qualitätsorientiert und schätze eine enge Zusammenarbeit im Team.
+      </p>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">Berufserfahrung</div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">System Entwickler</div>
+          <div class="job-company">Finanzministerium Afghanistan</div>
+          <div class="job-date">Januar 2020 – August 2021</div>
+        </div>
+        <p class="job-desc">Mitarbeit in einem Entwicklungsteam zur Konzeption und Umsetzung von Informationssystemen des Ministeriums:</p>
+        <ul class="job-bullets">
+          <li>Procurement- und Logistiksystem</li>
+          <li>Human-Resource-Management-System</li>
+          <li>Mobile App zur Online-Steuerberechnung</li>
+        </ul>
+        <p class="job-desc" style="margin-top:10px;">Verantwortlich für Analyse, Backend- und Frontend-Entwicklung sowie technische Dokumentation.</p>
+        <div class="job-tags">
+          <span class="job-tag">PHP</span><span class="job-tag">Laravel</span>
+          <span class="job-tag">Flutter</span><span class="job-tag">Firebase</span>
+          <span class="job-tag">REST-APIs</span>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Webmaster & Webanwendungsentwickler</div>
+          <div class="job-company">Unabhängige Menschenrechtskommission Afghanistan</div>
+          <div class="job-date">Feb 2014 – Januar 2020</div>
+        </div>
+        <p class="job-desc">Entwicklung und Implementierung von webbasierten Informationssystemen zur Unterstützung interner Prozesse:</p>
+        <ul class="job-bullets">
+          <li>AIHRC Website Development / Maintenance</li>
+          <li>Human-Resource-Management-System</li>
+          <li>Task-Management-Plattform</li>
+          <li>File-Sharing-System</li>
+        </ul>
+        <p class="job-desc" style="margin-top:10px;">Verantwortlich für Datenbankdesign, Backend-Entwicklung und Systemintegration.</p>
+        <div class="job-tags">
+          <span class="job-tag">PHP</span><span class="job-tag">Laravel</span><span class="job-tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Web- und Grafikdesigner</div>
+          <div class="job-company">NetLinks Softwareentwicklungsunternehmen, Afghanistan</div>
+          <div class="job-date">Januar 2012 – Feb 2014</div>
+        </div>
+        <p class="job-desc">Entwicklung und Gestaltung von individuellen Webseiten nach Kundenanforderungen von der Konzeption bis zur Umsetzung. Verantwortung für UI/UX-Design, Frontend-Entwicklung und technische Realisierung. Zudem Mitarbeit an der Entwicklung von Datenbanksystemen für private Unternehmen.</p>
+        <div class="job-tags">
+          <span class="job-tag">HTML</span><span class="job-tag">CSS</span>
+          <span class="job-tag">Bootstrap</span><span class="job-tag">CodeIgniter</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="sidebar">
+
+    <div class="section reveal">
+      <div class="section-title">GitHub Portfolio</div>
+      <a href="https://github.com/rezabahrami" target="_blank" class="github-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        → Mein GitHub
+      </a>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">Bildung</div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Science (B.Sc.) in Informatik</div>
+        <div class="edu-school">Herat University, Afghanistan<br>Schwerpunkt: Datenbanken und Softwareentwicklung</div>
+        <div class="edu-date">04/2008 – 12/2011</div>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">Sprachen</div>
+      <div class="lang-item"><span class="lang-name">Persisch</span><span class="lang-level">Muttersprache</span></div>
+      <div class="lang-item"><span class="lang-name">Deutsch</span><span class="lang-level">B2</span></div>
+      <div class="lang-item"><span class="lang-name">Englisch</span><span class="lang-level">B1</span></div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">Expertise</div>
+      <div class="expertise-list">
+        <div class="expertise-item">Software- & Web-Entwicklung</div>
+        <div class="expertise-item">IT-Kenntnisse</div>
+        <div class="expertise-item">Datenbanken & Backend</div>
+        <div class="expertise-item">Tools & Methoden</div>
+        <div class="expertise-item">Frontend-Entwicklung</div>
+        <div class="expertise-item">Web UI-Development</div>
+        <div class="expertise-item">Frontend-Technologien & Tools</div>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">Tools / Technologien</div>
+      <div class="tools-grid">
+        <span class="tool-tag">Laravel</span><span class="tool-tag">PHP</span>
+        <span class="tool-tag">React</span><span class="tool-tag">Flutter</span>
+        <span class="tool-tag">Firebase</span><span class="tool-tag">jQuery</span>
+        <span class="tool-tag">Bootstrap</span><span class="tool-tag">HTML5</span>
+        <span class="tool-tag">CSS3</span><span class="tool-tag">MySQL</span>
+        <span class="tool-tag">WordPress</span><span class="tool-tag">Drupal</span>
+      </div>
+    </div>
+<div class="section reveal">
+      <div class="section-title">Herunterladen</div>
+      <a href="M-Reza-Bahrami_Lebenslauf.pdf" target="_blank" class="github-btn">
+        
+        → Lebenslauf herunterladen 
+      </a>
+    </div>
+  </aside>
+</div>
+
+<div class="footer">Mohammad Reza Bahrami · Web- und Software Entwickler · Erkrath, Deutschland</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.sidebar .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+  });
+
+  document.querySelectorAll('.tool-tag').forEach(tag => {
+    tag.addEventListener('mouseenter', () => {
+      tag.style.transition = 'all 0.25s cubic-bezier(.34,1.56,.64,1)';
+    });
+  });
+</script>
+</body>
+</html>
